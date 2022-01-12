@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Basic_1473192762_5755414997_7894395015 {
+public class BasicDP {
     final static int delta = 30;
     static int pGap = 30;
     static int pAC = 110;
