@@ -1,0 +1,27 @@
+Summary
+As instruction asked, we use Dynamic Programming to solve the Sequence Alignment Problem. However, it’s considered not efficient in its memory usage. As a result, we implement a memory efficient version that uses Dynamic Programming and Divide & Conquer.
+
+Supposed that we have two input string called X and Y and m is length of X, n is length of Y.
+For DP version, we will directly construct a 2D matrix with size of m*n. It’s easy to learn that its space complexity is O(m*n).
+Using Divide and Conquer in Dynamic Programming, we divide Y into two parts and construct two arrays (called frontend and backend), and this two arrays are used to get the penalty of two parts. We called forward-alignment for (X,Y[1:n/2]) and called backward-alignment for (X,Y[n/2+1,n]). After getting the result of the subproblem, we add frontend[i]+backend[i] for each i, and then get the index i that gets minimum value of frontend[i]+backend[i], called q. We record the point(n/2, q), which must be on the final path. Then we recursively call the alignment (X[1,q],Y[1,n/2]) and alignment (X[q+1,m]), Y[n/2+1,n] function, and then get the final path and return it.
+It’s easy to learn that we use two lists with size of n, and a list for recording path that has a size of m, so it will use a O(m+n) memory.
+
+In total, time complexity and space complexity of two algorithm are listed below:
+Algorithm 	Time Complexity	Space Complexity
+DP version	O(m*n)	                O(m*n)
+DP&DC version	O(m*n)	                O(m+n)
+m and n represent the length of two input strings.
+
+We generate 12 input data and get the running time and memory usage of two algorithms, and plot them as below:
+
+CPUPlot: Input-size vs. Time usage
+In graph of CPUPlot, red line represents the DP algorithm and blue line represents the DP&DC algorithm. As we mentioned above, both algorithms have an O(m*n) time complexity, so when we plot a graph using (m+n) as a x-label, which makes the graph shape like a quadratic function (if m and n have no much differences), so it coincides our time complexity listed in the chart. Their growth trends are same by the large, but the DP algorithm is always faster than DP&DC version in specific running time.
+
+MemoryPlot: Input-size vs. Memory usage
+In graph of MemoryPlot, red line represents the DP algorithm and blue line represents the DP&DC algorithm. Unfortunately, we find that DP version covers less memory than DP&DC version when the input size is not large (<=512). We think it’s fine because the definition of Big-O says that Big-O trend will be decisive when n>=N0, so a lower Big-O doesn’t guarantee that it will cover less memory for every input size. However, when input size is large enough, it will cover less because interference factors will be covered by the main growth factor.
+When n>512, the memory usage of DP version growths much faster because its space complexity is O(m*n), while that of DP&DC version has a linear growth, which coincides our analysis.
+
+Members&Contribution:
+1473192762 Yudi Qi : Efficient version algorithm coding
+7894395015 Jiong Chen: Basic version algorithm coding
+5755414997 Yanbo Li: Other test framework coding, Testing and plotting, Summary preparation
